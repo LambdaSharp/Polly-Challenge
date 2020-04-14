@@ -60,22 +60,25 @@ lash init --quick-start
 
 - Search for "Amazon Polly" in AWS Console
 - Once in the Amazon Polly console, add some text to the "Plain Text" input area then click "Listen to speech".
-- Try different "Voices" and "Language and Region" then clicking "Listen to speech" again.
+- Try different "Voices" and "Language and Region" then click "Listen to speech" again.
 - Ensure you can play the audio file locally by clicking "Download MP3" and opening the file.
 
 ## Level 1
 
-- In the cloned repo working directory, Polly-Challenge, deploy LambdaSharp by running the following command: `lash deploy`. This takes a minute. - Fill out your phone number to receive SMS messages!  No spaces or dashes i.e 15551234567
+- In the cloned repo working directory, Polly-Challenge, deploy LambdaSharp by running the following command: `lash deploy`. This will take a minute. 
+
+- Fill out your phone number to receive SMS messages!  No spaces or dashes i.e 15551234567
 
   ```bash
   *** NOTIFICATION SETTINGS *** 
   |=> NotificationSms [String]: Phone number for PollyFunction to send SMS messages for Polly audio files:
   ```
 
-- Once completed, navigate to the AWS Console for  in API Gateway Deployment section.  Here is a link to the API Gateway console in US-EAST-1: https://console.aws.amazon.com/apigateway/main/apis?region=us-east-1
-- Test Amazon Polly by sending a web request to the API Gateway endpoint like this: `curl -d '{"Content": "Hello world! This is some test content.", "FileName": "test.mp3"}' -H "Content-Type: application/json" -X POST https:/REPLACEME.execute-api.us-east-1.amazonaws.com/LATEST/text-to-audio` Be sure to replace the `REPLACEME` with the actual subdomain or entire url. Works with Git Bash, \*Nix, and Postman.
+- Once completed, navigate to the API Gateway Deployment section in the AWS Console.  Here is a link to the API Gateway console in US-EAST-1: https://console.aws.amazon.com/apigateway/main/apis?region=us-east-1
+- Test Amazon Polly by sending a web request to the API Gateway endpoint like this: `curl -d '{"Content": "Hello world! This is some test content.", "FileName": "test.mp3"}' -H "Content-Type: application/json" -X POST https:/REPLACEME.execute-api.us-east-1.amazonaws.com/LATEST/text-to-audio` 
+  - Be sure to replace the `REPLACEME` with the actual subdomain or entire url. Works with Git Bash, \*Nix, and Postman.
 
-You can now navigation to the [AWS S3 console](https://s3.console.aws.amazon.com/s3/home?region=us-east-1) `ArticlesBucket` for the saved file `test.mp3`  
+You can now navigate to the [AWS S3 console](https://s3.console.aws.amazon.com/s3/home?region=us-east-1) `ArticlesBucket` for the saved file `test.mp3`  
 
 You can also do another curl request to get a list of files from that bucket `curl -X GET https:/REPLACEME.execute-api.us-east-1.amazonaws.com/LATEST/files`
 
@@ -103,7 +106,7 @@ NOTE: This should not require any text translation
 
 ## Level 4
 
-We don't want to expend processing power on duplicate files! If the content of the incoming article is identical to one that has already been saved, then do not process send for audio processing but still send a link to the MP3 file in a SMS notification.
+We don't want to expend processing power on duplicate files! If the content of the incoming article is identical to one that has already been saved, then do not send for audio processing but still send a link to the MP3 file in a SMS notification.
 
 ## Level 5
 
