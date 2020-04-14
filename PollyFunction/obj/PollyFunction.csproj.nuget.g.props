@@ -3,11 +3,11 @@
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
-    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">C:\Dev\Polly-Challenge\PollyFunction\obj\project.assets.json</ProjectAssetsFile>
+    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
     <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\spencerk\.nuget\packages\;C:\Program Files\dotnet\sdk\NuGetFallbackFolder</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
-    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">4.9.3</NuGetToolVersion>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">5.4.0</NuGetToolVersion>
   </PropertyGroup>
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -16,19 +16,22 @@
     <Import Project="$(NuGetPackageRoot)xunit.runner.msbuild\2.4.1\build\net452\xunit.runner.msbuild.props" Condition="Exists('$(NuGetPackageRoot)xunit.runner.msbuild\2.4.1\build\net452\xunit.runner.msbuild.props')" />
     <Import Project="$(NuGetPackageRoot)xunit.runner.console\2.4.1\build\xunit.runner.console.props" Condition="Exists('$(NuGetPackageRoot)xunit.runner.console\2.4.1\build\xunit.runner.console.props')" />
     <Import Project="$(NuGetPackageRoot)xunit.core\2.4.1\build\xunit.core.props" Condition="Exists('$(NuGetPackageRoot)xunit.core\2.4.1\build\xunit.core.props')" />
-    <Import Project="C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.1.0\build\netcoreapp2.1\Microsoft.NETCore.App.props" Condition="Exists('C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.1.0\build\netcoreapp2.1\Microsoft.NETCore.App.props')" />
-    <Import Project="$(NuGetPackageRoot)microsoft.codecoverage\16.0.1\build\netstandard1.0\Microsoft.CodeCoverage.props" Condition="Exists('$(NuGetPackageRoot)microsoft.codecoverage\16.0.1\build\netstandard1.0\Microsoft.CodeCoverage.props')" />
-    <Import Project="$(NuGetPackageRoot)microsoft.net.test.sdk\16.0.1\build\netcoreapp1.0\Microsoft.NET.Test.Sdk.props" Condition="Exists('$(NuGetPackageRoot)microsoft.net.test.sdk\16.0.1\build\netcoreapp1.0\Microsoft.NET.Test.Sdk.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.testplatform.testhost\16.5.0\build\netcoreapp2.1\Microsoft.TestPlatform.TestHost.props" Condition="Exists('$(NuGetPackageRoot)microsoft.testplatform.testhost\16.5.0\build\netcoreapp2.1\Microsoft.TestPlatform.TestHost.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.codecoverage\16.5.0\build\netstandard1.0\Microsoft.CodeCoverage.props" Condition="Exists('$(NuGetPackageRoot)microsoft.codecoverage\16.5.0\build\netstandard1.0\Microsoft.CodeCoverage.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.net.test.sdk\16.5.0\build\netcoreapp2.1\Microsoft.NET.Test.Sdk.props" Condition="Exists('$(NuGetPackageRoot)microsoft.net.test.sdk\16.5.0\build\netcoreapp2.1\Microsoft.NET.Test.Sdk.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Pkgxunit_runner_console Condition=" '$(Pkgxunit_runner_console)' == '' ">C:\Users\spencerk\.nuget\packages\xunit.runner.console\2.4.1</Pkgxunit_runner_console>
-    <PkgAWSSDK_Core Condition=" '$(PkgAWSSDK_Core)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.core\3.3.100.5</PkgAWSSDK_Core>
+    <Pkgxunit_analyzers Condition=" '$(Pkgxunit_analyzers)' == '' ">C:\Users\spencerk\.nuget\packages\xunit.analyzers\0.10.0</Pkgxunit_analyzers>
+    <PkgNewtonsoft_Json Condition=" '$(PkgNewtonsoft_Json)' == '' ">C:\Program Files\dotnet\sdk\NuGetFallbackFolder\newtonsoft.json\9.0.1</PkgNewtonsoft_Json>
+    <PkgAWSSDK_Core Condition=" '$(PkgAWSSDK_Core)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.core\3.3.106.4</PkgAWSSDK_Core>
     <PkgAWSSDK_XRay Condition=" '$(PkgAWSSDK_XRay)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.xray\3.3.3</PkgAWSSDK_XRay>
-    <PkgAWSSDK_SQS Condition=" '$(PkgAWSSDK_SQS)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.sqs\3.3.3.54</PkgAWSSDK_SQS>
-    <PkgAWSSDK_KeyManagementService Condition=" '$(PkgAWSSDK_KeyManagementService)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.keymanagementservice\3.3.7.16</PkgAWSSDK_KeyManagementService>
-    <PkgAWSSDK_ApiGatewayManagementApi Condition=" '$(PkgAWSSDK_ApiGatewayManagementApi)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.apigatewaymanagementapi\3.3.1.3</PkgAWSSDK_ApiGatewayManagementApi>
-    <PkgAWSSDK_S3 Condition=" '$(PkgAWSSDK_S3)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.s3\3.3.101.3</PkgAWSSDK_S3>
-    <PkgAWSSDK_Polly Condition=" '$(PkgAWSSDK_Polly)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.polly\3.3.100.5</PkgAWSSDK_Polly>
-    <PkgAWSSDK_Lambda Condition=" '$(PkgAWSSDK_Lambda)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.lambda\3.3.100.5</PkgAWSSDK_Lambda>
+    <PkgAWSSDK_SQS Condition=" '$(PkgAWSSDK_SQS)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.sqs\3.3.102.66</PkgAWSSDK_SQS>
+    <PkgAWSSDK_KeyManagementService Condition=" '$(PkgAWSSDK_KeyManagementService)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.keymanagementservice\3.3.105.3</PkgAWSSDK_KeyManagementService>
+    <PkgAWSSDK_CloudFormation Condition=" '$(PkgAWSSDK_CloudFormation)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.cloudformation\3.3.104.3</PkgAWSSDK_CloudFormation>
+    <PkgAWSSDK_SimpleNotificationService Condition=" '$(PkgAWSSDK_SimpleNotificationService)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.simplenotificationservice\3.3.101.148</PkgAWSSDK_SimpleNotificationService>
+    <PkgAWSSDK_S3 Condition=" '$(PkgAWSSDK_S3)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.s3\3.3.110.50</PkgAWSSDK_S3>
+    <PkgAWSSDK_Polly Condition=" '$(PkgAWSSDK_Polly)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.polly\3.3.103.70</PkgAWSSDK_Polly>
+    <PkgAWSSDK_Lambda Condition=" '$(PkgAWSSDK_Lambda)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.lambda\3.3.109.6</PkgAWSSDK_Lambda>
   </PropertyGroup>
 </Project>

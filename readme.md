@@ -1,65 +1,95 @@
 # Amazon Polly Challenge
 
-In this challenge, we'll be exploring Amazon Polly to convert text to audio.
+In this challenge, we'll be exploring Amazon Polly to convert text to audio and then building the exact case study show below:
 
-![Flow](case-study.png)
+![Amazon Polly Flow existing case study](case-study.png)
 
 ## Helpful Links
 
 [.NET AWS Polly SDK Docs](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html?page=Polly/MPollySynthesizeSpeechSynthesizeSpeechRequest.html&tocid=Amazon_Polly_AmazonPollyClient)
 [.NET AWS SDK Docs](https://docs.aws.amazon.com/sdkfornet/v3/apidocs)
 
-## Pre-requisites
+## Prerequisites
 
 The following tools and accounts are required to complete these instructions.
 
 - [Install .NET Core 2.2](https://www.microsoft.com/net/download)
-- [LambdaSharp Tool](https://github.com/LambdaSharp/LambdaSharpTool) - This is important! `dotnet tool install --global LambdaSharp.Tool --version 0.6.0-RC1`
+- [LambdaSharp Tool](https://github.com/LambdaSharp/LambdaSharpTool)
 - [AWS Account](https://aws.amazon.com/)
 - [GitHub Account](https://github.com/)
 - [Install AWS CLI](https://aws.amazon.com/cli/)
 
+### Install SDK & Tools
+
+Make sure the following tools are installed.
+
+- [Download and install the .NET Core SDK](https://dotnet.microsoft.com/download)
+- [Download and install Git Command Line Interface](https://git-scm.com/downloads)
+
+### Setup AWS Account and CLI
+
+The challenge requires an AWS account. AWS provides a [_Free Tier_](https://aws.amazon.com/free/), which is sufficient for most challenges.
+
+- [Create an AWS Account](https://aws.amazon.com)
+
+### Clone GitHub Repository
+
+Next, you will need to clone this repo into your working directory:
+
+```bash
+git clone https://github.com/LambdaSharp/Polly-Challenge.git
+```
+
+### Setup LambdaSharp Deployment Tier
+
+The following command uses the `dotnet` CLI to install the LambdaSharp CLI.
+
+```bash
+dotnet tool install --global LambdaSharp.Tool
+```
+
+**NOTE:** if you have installed LambdaSharp.Tool in the past, you will need to run `dotnet tool update -g LambdaSharp.Tool` instead.
+
+The following command uses the LambdaSharp CLI to create a new deployment tier on the default AWS account. Specify another account using `--aws-profile ACCOUNT_NAME`.
+
+```bash
+lash init --quick-start
+```
+
 ## Level 0
 
-- Clone this repo.
-- `lash config` if you haven't used the LambdaSharp tool before.
-- `lash deploy --tier Challenge`. This will build and deploy your lambda function.
-(For Mac Users, you may have add the lash tool to your path. You can add this to your bash profile `export PATH="$PATH:$HOME/.dotnet/tools"`)
-- Get the API Gateway url from the lambda function created by Lambda#.
-- Test the API Gateway endpoint like this: `curl -d '{"Content": "Hello world! This is some test content.", "FileName": "test.mp3"}' -H "Content-Type: application/json" -X POST https:/REPLACEME.execute-api.us-east-1.amazonaws.com/LATEST/articles` Works with Git Bash and *Nix
+- Search for "Amazon Polly" in AWS Console
+- Once in the Amazon Polly console, add some text to the "Plain Text" input area then click "Listen to speech".
+- Try different "Voices" and "Language and Region" then clicking "Listen to speech" again.
+- Ensure you can play the audio file locally by clicking "Download MP3" and opening the file.
 
 ## Level 1
 
-After the text is converted to audio, we want to be able to access the files anytime. Make the S3 bucket public. It's defined in `Module.yml`.
+- In the cloned repo working directory, Polly-Challenge, deploy LambdaSharp by running the following command: `lash deploy`. This takes a minute. - Fill out your phone number to receive SMS messages!  No spaces or dashes i.e 15551234567
 
-See this LambdaSharp example: https://github.com/LambdaSharp/StaticWebsite-Sample
+  ```bash
+  *** NOTIFICATION SETTINGS *** 
+  |=> NotificationSms [String]: Phone number for PollyFunction to send SMS messages for Polly audio files:
+  ```
 
-Don't forget to deploy the updated stack! `lash deploy --tier Challenge`. You will need to do this anytime you make a change.
+- Once completed, navigate to the AWS Console for  in API Gateway Deployment section.  Here is a link to the API Gateway console in US-EAST-1: https://console.aws.amazon.com/apigateway/main/apis?region=us-east-1
+- Test Amazon Polly by sending a web request to the API Gateway endpoint like this: `curl -d '{"Content": "Hello world! This is some test content.", "FileName": "test.mp3"}' -H "Content-Type: application/json" -X POST https:/REPLACEME.execute-api.us-east-1.amazonaws.com/LATEST/text-to-audio` Be sure to replace the `REPLACEME` with the actual subdomain or entire url. Works with Git Bash, \*Nix, and Postman.
 
-<details><summary>Not hard enough for you?</summary>
-We don't want to expend processing power on duplicate files! If the content of the incoming article is identical to one that has already been saved, then ignore it.
-</details>
+You can now navigation to the [AWS S3 console](https://s3.console.aws.amazon.com/s3/home?region=us-east-1) `ArticlesBucket` for the saved file `test.mp3`  
+
+You can also do another curl request to get a list of files from that bucket `curl -X GET https:/REPLACEME.execute-api.us-east-1.amazonaws.com/LATEST/files`
 
 ## Level 2
 
-Let's be notified when the audio file is ready. Send an SMS/Email using an SNS topic. Add a link to the mp3 in the SNS notification.
-
+Let's get notified when the converted text to audio file is ready. Send an SMS using an SNS topic. Add a link to the MP3 in the SNS message. Some setup has already been completed for you.
 
 Docs: [Amazon SNS Publish](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html?page=SNS/MSNSPublishAsyncStringStringCancellationToken.html&tocid=Amazon_SimpleNotificationService_Amaz)
 
-<details><summary>Hint 1</summary>
-Create a SNS topic in <code>Module.yml</code> using <code>lash new resource ArticleAudioDone AWS::SNS::Topic</code>
-</details>
-
-<details><summary>Hint 2</summary>
-<a href=https://github.com/LambdaSharp/LambdaSharpTool/blob/master/Demos/TwitterNotifier/NotifyFunction/Function.cs#L73>Twitter Notify Demo</a>
-</details>
-
 ## Level 3
 
-We want the user to be able to choose a language and get audio based on that selection.
+We want the user to be able to choose a language, voice style, and get audio based on that selection. Using the `curl` request from Level 1, add a property for `LanguageCode` and `VoiceId`
 
-Use Amazon Polly's built in localization methods to describe the voices available for that language code. 
+Use Amazon Polly's built in localization methods to describe the voices available for that language code.
 
 Pick a voice from that list and use it to synthesize the text to speech in the chosen language.
 
@@ -72,6 +102,10 @@ NOTE: This should not require any text translation
 [Language_Codes] https://docs.aws.amazon.com/polly/latest/dg/SupportedLanguage.html
 
 ## Level 4
+
+We don't want to expend processing power on duplicate files! If the content of the incoming article is identical to one that has already been saved, then do not process send for audio processing but still send a link to the MP3 file in a SMS notification.
+
+## Level 5
 
 We want to poll an article list with title and description every 5 minutes from an RSS feed. Typically this would be done every day but for the purposes of this challenge, 5 minute intervals will work. Save the audio file in the following format `{timestamp}.mp3`. Update your lambda function to handle triggers other than API Gateway
 
@@ -88,7 +122,7 @@ https://docs.aws.amazon.com/lambda/latest/dg/tutorial-scheduled-events-schedule-
 https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/RunLambdaSchedule.html
 
 <details><summary>Hint</summary>
-Make a post request to the API Gateway endpoint with the content from the RSS feed. You may need to create a new function for this logic.
+Make a post request to the API Gateway endpoint with the content from the RSS feed.
 </details>
 <details><summary>Not hard enough for you?</summary>
 Parse the article's html into plain text then convert it to an mp3.  This could be in the field: <code>content:encoded</code>

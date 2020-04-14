@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollyFunction", "PollyFunction\PollyFunction.csproj", "{AF8580A6-B224-4FA0-8616-899A0FDB4DAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyFunctionTests", "PollyFunctionTests\PollyFunctionTests.csproj", "{EBC7C2DD-2240-4720-9D4C-2E69C955602A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF8580A6-B224-4FA0-8616-899A0FDB4DAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF8580A6-B224-4FA0-8616-899A0FDB4DAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF8580A6-B224-4FA0-8616-899A0FDB4DAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF8580A6-B224-4FA0-8616-899A0FDB4DAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBC7C2DD-2240-4720-9D4C-2E69C955602A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBC7C2DD-2240-4720-9D4C-2E69C955602A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBC7C2DD-2240-4720-9D4C-2E69C955602A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBC7C2DD-2240-4720-9D4C-2E69C955602A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9820D7AC-DA44-4CC1-AEA6-65C9949B4940}
+	EndGlobalSection
+EndGlobal

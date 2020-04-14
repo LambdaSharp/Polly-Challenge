@@ -1,7 +1,14 @@
+# READ ME! There is nothing you need to change here.  Everything is already configured for you.  See the `Logic.cs` file to extend the lambda function logic.
 Module: LambdaSharpChallenge.PollyToS3Module
-Version: 1.0-DEV
-Description: Send text to Polly to save an audio file to S3
+Version: 1.2-DEV
+Description: Send text to Polly for further processing
 Items:
+
+  - Parameter: NotificationSms
+    Description: This parameter sets the phone number for SMS messages 
+    Section: Notification Settings
+    Label: Phone number for PollyFunction to send SMS messages for Polly audio files
+    ConstraintDescription: Must be a valid phone number
   
   - Resource: PollyPermissions
     Scope: PollyFunction
@@ -15,10 +22,38 @@ Items:
     Type: AWS::S3::Bucket
     Allow: ReadWrite
 
+  - Resource: ArticlesTopic
+    Description: SNS Topic for Amazon Polly events
+    Type: AWS::SNS::Topic
+    Allow: Publish
+    Scope: PollyFunction
+    Properties:
+      Subscription:
+        - Protocol: SMS
+          Endpoint: !Ref NotificationSms
+
+  - Resource: ArticlesBucketPolicy
+    Description: Public access policy
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      PolicyDocument:
+        Id: ArticlesBucket
+        Version: 2012-10-17
+        Statement:
+          - Sid: PublicReadForGetBucketObjects
+            Effect: Allow
+            Principal: '*'
+            Action: s3:GetObject
+            Resource: !Sub "${ArticlesBucket.Arn}/*"
+      Bucket: !Ref ArticlesBucket
+
   - Function: PollyFunction
-    Description: Endpoints to send text to Polly to save to a S3 bucket
+    Description: Endpoints to interact with Polly and S3
     Memory: 512
     Timeout: 30
     Sources:
-      - Api: POST:/articles
-        Invoke: Logic::AddItem
+      - Api: POST:/text-to-audio
+        Invoke: AddTextToAudio
+      - Api: GET:/files
+        Invoke: GetFiles
+
