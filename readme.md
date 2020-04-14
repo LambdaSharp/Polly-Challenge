@@ -13,7 +13,7 @@ In this challenge, we'll be exploring Amazon Polly to convert text to audio and 
 
 The following tools and accounts are required to complete these instructions.
 
-- [Install .NET Core 2.2](https://www.microsoft.com/net/download)
+- [Install .NET Core 3.1](https://www.microsoft.com/net/download)
 - [LambdaSharp Tool](https://github.com/LambdaSharp/LambdaSharpTool)
 - [AWS Account](https://aws.amazon.com/)
 - [GitHub Account](https://github.com/)
