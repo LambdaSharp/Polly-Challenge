@@ -5,6 +5,7 @@
     "NotificationSms": {
       "Type": "String",
       "Description": "This parameter sets the phone number for SMS messages",
+      "AllowedPattern": "1.+",
       "ConstraintDescription": "Must be a valid phone number"
     },
     "Secrets": {
@@ -72,7 +73,7 @@
     "DeploymentChecksum": {
       "Type": "String",
       "Description": "Deployment Checksum",
-      "Default": "F184D7A02D114FE0E1696D95BFCED019"
+      "Default": "358FD0FE9288F3EDFB6054615F77ACB3"
     }
   },
   "Resources": {
@@ -123,7 +124,7 @@
           "S3Bucket": {
             "Ref": "DeploymentBucketName"
           },
-          "S3Key": "<%MODULE_ORIGIN%>/LambdaSharpChallenge/PollyToS3Module/.artifacts/function_LambdaSharpChallenge.PollyToS3Module_PollyFunction_A1CF3DD84B5614F1835379B4098AC36C.zip"
+          "S3Key": "<%MODULE_ORIGIN%>/LambdaSharpChallenge/PollyToS3Module/.artifacts/function_LambdaSharpChallenge.PollyToS3Module_PollyFunction_6A5CDF7C32D476062E8FF65D645E3A54.zip"
         },
         "DeadLetterConfig": {
           "TargetArn": {
@@ -216,6 +217,7 @@
               ]
             },
             "STR_POLLYPERMISSIONS": "*",
+            "STR_TRANSLATEPERMISSIONS": "*",
             "STR_ARTICLESBUCKET": {
               "Fn::GetAtt": [
                 "ArticlesBucket",
@@ -306,6 +308,14 @@
                   "Action": [
                     "polly:DescribeVoices",
                     "polly:SynthesizeSpeech"
+                  ],
+                  "Resource": "*"
+                },
+                {
+                  "Sid": "TranslatePermissions",
+                  "Effect": "Allow",
+                  "Action": [
+                    "translate:TranslateText"
                   ],
                   "Resource": "*"
                 },
@@ -662,7 +672,7 @@
         "FailOnWarnings": true
       }
     },
-    "ModuleRestApiTexttoaudioResource": {
+    "ModuleRestApiTexttospeechResource": {
       "Type": "AWS::ApiGateway::Resource",
       "Properties": {
         "ParentId": {
@@ -671,13 +681,13 @@
             "RootResourceId"
           ]
         },
-        "PathPart": "text-to-audio",
+        "PathPart": "text-to-speech",
         "RestApiId": {
           "Ref": "ModuleRestApi"
         }
       }
     },
-    "ModuleRestApiTexttoaudioResourcePOST": {
+    "ModuleRestApiTexttospeechResourcePOST": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
         "AuthorizationType": "NONE",
@@ -705,34 +715,34 @@
           {
             "ResponseModels": {
               "application/json": {
-                "Ref": "ModuleRestApiTexttoaudioResourcePOSTResponseModel"
+                "Ref": "ModuleRestApiTexttospeechResourcePOSTResponseModel"
               }
             },
             "StatusCode": 200
           }
         ],
-        "OperationName": "AddTextToAudio",
+        "OperationName": "AddTextToSpeechFileToBucket",
         "RequestModels": {
           "application/json": {
-            "Ref": "ModuleRestApiTexttoaudioResourcePOSTRequestModel"
+            "Ref": "ModuleRestApiTexttospeechResourcePOSTRequestModel"
           }
         },
         "RequestValidatorId": {
           "Ref": "ModuleRestApiRequestValidator"
         },
         "ResourceId": {
-          "Ref": "ModuleRestApiTexttoaudioResource"
+          "Ref": "ModuleRestApiTexttospeechResource"
         },
         "RestApiId": {
           "Ref": "ModuleRestApi"
         }
       }
     },
-    "ModuleRestApiTexttoaudioResourcePOSTRequestModel": {
+    "ModuleRestApiTexttospeechResourcePOSTRequestModel": {
       "Type": "AWS::ApiGateway::Model",
       "Properties": {
         "ContentType": "application/json",
-        "Name": "ModuleRestApiTexttoaudioResourcePOSTRequest",
+        "Name": "ModuleRestApiTexttospeechResourcePOSTRequest",
         "RestApiId": {
           "Ref": "ModuleRestApi"
         },
@@ -755,11 +765,11 @@
         }
       }
     },
-    "ModuleRestApiTexttoaudioResourcePOSTResponseModel": {
+    "ModuleRestApiTexttospeechResourcePOSTResponseModel": {
       "Type": "AWS::ApiGateway::Model",
       "Properties": {
         "ContentType": "application/json",
-        "Name": "ModuleRestApiTexttoaudioResourcePOSTResponse",
+        "Name": "ModuleRestApiTexttospeechResourcePOSTResponse",
         "RestApiId": {
           "Ref": "ModuleRestApi"
         },
@@ -872,6 +882,79 @@
         }
       }
     },
+    "ModuleRestApiNewsfeedResource": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ModuleRestApi",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "news-feed",
+        "RestApiId": {
+          "Ref": "ModuleRestApi"
+        }
+      }
+    },
+    "ModuleRestApiNewsfeedResourceGET": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "GET",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "PassthroughBehavior": "WHEN_NO_TEMPLATES",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Sub": "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PollyFunction.Arn}/invocations"
+          }
+        },
+        "MethodResponses": [
+          {
+            "ResponseModels": {
+              "application/json": {
+                "Ref": "ModuleRestApiNewsfeedResourceGETResponseModel"
+              }
+            },
+            "StatusCode": 200
+          }
+        ],
+        "OperationName": "AddNewsFeedAudioToBucket",
+        "RequestValidatorId": {
+          "Ref": "ModuleRestApiRequestValidator"
+        },
+        "ResourceId": {
+          "Ref": "ModuleRestApiNewsfeedResource"
+        },
+        "RestApiId": {
+          "Ref": "ModuleRestApi"
+        }
+      }
+    },
+    "ModuleRestApiNewsfeedResourceGETResponseModel": {
+      "Type": "AWS::ApiGateway::Model",
+      "Properties": {
+        "ContentType": "application/json",
+        "Name": "ModuleRestApiNewsfeedResourceGETResponse",
+        "RestApiId": {
+          "Ref": "ModuleRestApi"
+        },
+        "Schema": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "title": "ConvertTextResponse",
+          "type": "object",
+          "required": [
+            "FileName"
+          ],
+          "properties": {
+            "FileName": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
     "ModuleRestApiRequestValidator": {
       "Type": "AWS::ApiGateway::RequestValidator",
       "Properties": {
@@ -891,11 +974,11 @@
         "RetentionInDays": 30
       }
     },
-    "ModuleRestApiDeployment2D7874481BB1A125AEFFF523C6B1F224": {
+    "ModuleRestApiDeployment29669531DA98316B1763232AC0AA046A": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "Description": {
-          "Fn::Sub": "${AWS::StackName} API [2D7874481BB1A125AEFFF523C6B1F224]"
+          "Fn::Sub": "${AWS::StackName} API [29669531DA98316B1763232AC0AA046A]"
         },
         "RestApiId": {
           "Ref": "ModuleRestApi"
@@ -905,17 +988,20 @@
         "ModuleRestApiFilesResource",
         "ModuleRestApiFilesResourceGET",
         "ModuleRestApiFilesResourceGETResponseModel",
-        "ModuleRestApiTexttoaudioResource",
-        "ModuleRestApiTexttoaudioResourcePOST",
-        "ModuleRestApiTexttoaudioResourcePOSTRequestModel",
-        "ModuleRestApiTexttoaudioResourcePOSTResponseModel"
+        "ModuleRestApiNewsfeedResource",
+        "ModuleRestApiNewsfeedResourceGET",
+        "ModuleRestApiNewsfeedResourceGETResponseModel",
+        "ModuleRestApiTexttospeechResource",
+        "ModuleRestApiTexttospeechResourcePOST",
+        "ModuleRestApiTexttospeechResourcePOSTRequestModel",
+        "ModuleRestApiTexttospeechResourcePOSTResponseModel"
       ]
     },
     "ModuleRestApiStage": {
       "Type": "AWS::ApiGateway::Stage",
       "Properties": {
         "DeploymentId": {
-          "Ref": "ModuleRestApiDeployment2D7874481BB1A125AEFFF523C6B1F224"
+          "Ref": "ModuleRestApiDeployment29669531DA98316B1763232AC0AA046A"
         },
         "MethodSettings": [
           {
@@ -1193,8 +1279,8 @@
       "Version": "2019-07-04",
       "Module": "LambdaSharpChallenge.PollyToS3Module:1.2-DEV",
       "Description": "Send text to Polly for further processing",
-      "TemplateChecksum": "F184D7A02D114FE0E1696D95BFCED019",
-      "Date": "2020-04-14T22:16:28Z",
+      "TemplateChecksum": "358FD0FE9288F3EDFB6054615F77ACB3",
+      "Date": "2020-04-15T02:40:37Z",
       "CoreServicesVersion": "0.7.0",
       "ParameterSections": [
         {
@@ -1204,6 +1290,7 @@
               "Name": "NotificationSms",
               "Type": "String",
               "Label": "Phone number for PollyFunction to send SMS messages for Polly audio files",
+              "AllowedPattern": "1.+",
               "ConstraintDescription": "Must be a valid phone number"
             }
           ]
@@ -1275,10 +1362,10 @@
       ],
       "Git": {
         "Branch": "master",
-        "SHA": "DIRTY-45731e87e40bd8d4ebb6908e768f6a4addfb3523"
+        "SHA": "DIRTY-e9cf22f4229312cd86353dcbda92fbb4c661902e"
       },
       "Artifacts": [
-        "function_LambdaSharpChallenge.PollyToS3Module_PollyFunction_A1CF3DD84B5614F1835379B4098AC36C.zip"
+        "function_LambdaSharpChallenge.PollyToS3Module_PollyFunction_6A5CDF7C32D476062E8FF65D645E3A54.zip"
       ],
       "Dependencies": [],
       "ResourceTypes": [],
@@ -1295,17 +1382,20 @@
         "PollyFunctionRegistration": "PollyFunction::Registration",
         "PollyFunctionLogGroupSubscription": "PollyFunction::LogGroupSubscription",
         "ModuleRestApi": "Module::RestApi",
-        "ModuleRestApiTexttoaudioResource": "Module::RestApi::TexttoaudioResource",
-        "ModuleRestApiTexttoaudioResourcePOST": "Module::RestApi::TexttoaudioResource::POST",
-        "ModuleRestApiTexttoaudioResourcePOSTRequestModel": "Module::RestApi::TexttoaudioResource::POST::RequestModel",
-        "ModuleRestApiTexttoaudioResourcePOSTResponseModel": "Module::RestApi::TexttoaudioResource::POST::ResponseModel",
+        "ModuleRestApiTexttospeechResource": "Module::RestApi::TexttospeechResource",
+        "ModuleRestApiTexttospeechResourcePOST": "Module::RestApi::TexttospeechResource::POST",
+        "ModuleRestApiTexttospeechResourcePOSTRequestModel": "Module::RestApi::TexttospeechResource::POST::RequestModel",
+        "ModuleRestApiTexttospeechResourcePOSTResponseModel": "Module::RestApi::TexttospeechResource::POST::ResponseModel",
         "PollyFunctionRestApiPermission": "PollyFunction::RestApiPermission",
         "ModuleRestApiFilesResource": "Module::RestApi::FilesResource",
         "ModuleRestApiFilesResourceGET": "Module::RestApi::FilesResource::GET",
         "ModuleRestApiFilesResourceGETResponseModel": "Module::RestApi::FilesResource::GET::ResponseModel",
+        "ModuleRestApiNewsfeedResource": "Module::RestApi::NewsfeedResource",
+        "ModuleRestApiNewsfeedResourceGET": "Module::RestApi::NewsfeedResource::GET",
+        "ModuleRestApiNewsfeedResourceGETResponseModel": "Module::RestApi::NewsfeedResource::GET::ResponseModel",
         "ModuleRestApiRequestValidator": "Module::RestApi::RequestValidator",
         "ModuleRestApiLogGroup": "Module::RestApi::LogGroup",
-        "ModuleRestApiDeployment2D7874481BB1A125AEFFF523C6B1F224": "Module::RestApi::Deployment2D7874481BB1A125AEFFF523C6B1F224",
+        "ModuleRestApiDeployment29669531DA98316B1763232AC0AA046A": "Module::RestApi::Deployment29669531DA98316B1763232AC0AA046A",
         "ModuleRestApiStage": "Module::RestApi::Stage"
       },
       "TypeNameMappings": {

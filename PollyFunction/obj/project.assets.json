@@ -147,6 +147,18 @@
           "lib/netstandard2.0/AWSSDK.SQS.dll": {}
         }
       },
+      "AWSSDK.Translate/3.3.101.38": {
+        "type": "package",
+        "dependencies": {
+          "AWSSDK.Core": "[3.3.106.3, 3.4.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/AWSSDK.Translate.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AWSSDK.Translate.dll": {}
+        }
+      },
       "AWSSDK.XRay/3.3.3": {
         "type": "package",
         "dependencies": {
@@ -2422,6 +2434,18 @@
         },
         "runtime": {
           "lib/netstandard2.0/AWSSDK.SQS.dll": {}
+        }
+      },
+      "AWSSDK.Translate/3.3.101.38": {
+        "type": "package",
+        "dependencies": {
+          "AWSSDK.Core": "[3.3.106.3, 3.4.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/AWSSDK.Translate.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AWSSDK.Translate.dll": {}
         }
       },
       "AWSSDK.XRay/3.3.3": {
@@ -5247,6 +5271,46 @@
         "lib/uap/AWSSDK.SQS.XML",
         "lib/uap/AWSSDK.SQS.dll",
         "lib/uap/AWSSDK.SQS.pdb",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    },
+    "AWSSDK.Translate/3.3.101.38": {
+      "sha512": "33m703AnOege/7bCrTO34+cmaVTiInOQQdpQ/iC/NCGKP5nUbvWvTpKU/buYkYG4XlVS4TDrkAaaRtn+7Fh62Q==",
+      "type": "package",
+      "path": "awssdk.translate/3.3.101.38",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "analyzers/dotnet/cs/AWSSDK.Translate.CodeAnalysis.dll",
+        "awssdk.translate.3.3.101.38.nupkg.sha512",
+        "awssdk.translate.nuspec",
+        "lib/MonoAndroid10/AWSSDK.Translate.XML",
+        "lib/MonoAndroid10/AWSSDK.Translate.dll",
+        "lib/MonoTouch10/AWSSDK.Translate.XML",
+        "lib/MonoTouch10/AWSSDK.Translate.dll",
+        "lib/MonoTouch10/AWSSDK.Translate.pdb",
+        "lib/Xamarin.iOS10/AWSSDK.Translate.XML",
+        "lib/Xamarin.iOS10/AWSSDK.Translate.dll",
+        "lib/net35/AWSSDK.Translate.dll",
+        "lib/net35/AWSSDK.Translate.pdb",
+        "lib/net35/AWSSDK.Translate.xml",
+        "lib/net45/AWSSDK.Translate.dll",
+        "lib/net45/AWSSDK.Translate.pdb",
+        "lib/net45/AWSSDK.Translate.xml",
+        "lib/netstandard1.3/AWSSDK.Translate.dll",
+        "lib/netstandard1.3/AWSSDK.Translate.pdb",
+        "lib/netstandard1.3/AWSSDK.Translate.xml",
+        "lib/netstandard2.0/AWSSDK.Translate.dll",
+        "lib/netstandard2.0/AWSSDK.Translate.pdb",
+        "lib/netstandard2.0/AWSSDK.Translate.xml",
+        "lib/portable-net45+win8+wpa81+wp8/AWSSDK.Translate.XML",
+        "lib/portable-net45+win8+wpa81+wp8/AWSSDK.Translate.dll",
+        "lib/portable-net45+win8+wpa81+wp8/AWSSDK.Translate.pdb",
+        "lib/uap/AWSSDK.Translate.XML",
+        "lib/uap/AWSSDK.Translate.dll",
+        "lib/uap/AWSSDK.Translate.pdb",
         "tools/install.ps1",
         "tools/uninstall.ps1"
       ]
@@ -10759,6 +10823,7 @@
       "AWSSDK.Polly >= 3.3.103.70",
       "AWSSDK.S3 >= 3.3.110.50",
       "AWSSDK.SimpleNotificationService >= 3.3.101.148",
+      "AWSSDK.Translate >= 3.3.101.38",
       "Amazon.Lambda.Core >= 1.1.0",
       "Amazon.Lambda.Serialization.Json >= 1.7.0",
       "LambdaSharp >= 0.7.0.8",
@@ -10836,6 +10901,10 @@
           "AWSSDK.SimpleNotificationService": {
             "target": "Package",
             "version": "[3.3.101.148, )"
+          },
+          "AWSSDK.Translate": {
+            "target": "Package",
+            "version": "[3.3.101.38, )"
           },
           "Amazon.Lambda.Core": {
             "target": "Package",

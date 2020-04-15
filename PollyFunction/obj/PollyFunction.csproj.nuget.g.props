@@ -29,6 +29,7 @@
     <PkgAWSSDK_SQS Condition=" '$(PkgAWSSDK_SQS)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.sqs\3.3.102.66</PkgAWSSDK_SQS>
     <PkgAWSSDK_KeyManagementService Condition=" '$(PkgAWSSDK_KeyManagementService)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.keymanagementservice\3.3.105.3</PkgAWSSDK_KeyManagementService>
     <PkgAWSSDK_CloudFormation Condition=" '$(PkgAWSSDK_CloudFormation)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.cloudformation\3.3.104.3</PkgAWSSDK_CloudFormation>
+    <PkgAWSSDK_Translate Condition=" '$(PkgAWSSDK_Translate)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.translate\3.3.101.38</PkgAWSSDK_Translate>
     <PkgAWSSDK_SimpleNotificationService Condition=" '$(PkgAWSSDK_SimpleNotificationService)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.simplenotificationservice\3.3.101.148</PkgAWSSDK_SimpleNotificationService>
     <PkgAWSSDK_S3 Condition=" '$(PkgAWSSDK_S3)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.s3\3.3.110.50</PkgAWSSDK_S3>
     <PkgAWSSDK_Polly Condition=" '$(PkgAWSSDK_Polly)' == '' ">C:\Users\spencerk\.nuget\packages\awssdk.polly\3.3.103.70</PkgAWSSDK_Polly>

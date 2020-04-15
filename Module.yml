@@ -7,8 +7,9 @@ Items:
   - Parameter: NotificationSms
     Description: This parameter sets the phone number for SMS messages 
     Section: Notification Settings
+    AllowedPattern: 1.+
     Label: Phone number for PollyFunction to send SMS messages for Polly audio files
-    ConstraintDescription: Must be a valid phone number
+    ConstraintDescription: Must be a valid phone number starting with 1
   
   - Resource: PollyPermissions
     Scope: PollyFunction
@@ -16,6 +17,12 @@ Items:
     Allow:
       - polly:DescribeVoices
       - polly:SynthesizeSpeech
+  
+  - Resource: TranslatePermissions
+    Scope: PollyFunction
+    Value: "*"
+    Allow:
+      - translate:TranslateText
 
   - Resource: ArticlesBucket
     Scope: PollyFunction
@@ -52,8 +59,11 @@ Items:
     Memory: 512
     Timeout: 30
     Sources:
-      - Api: POST:/text-to-audio
-        Invoke: AddTextToAudio
+      - Api: POST:/text-to-speech
+        Invoke: AddTextToSpeechFileToBucket
       - Api: GET:/files
         Invoke: GetFiles
+      - Api: GET:/news-feed
+        Invoke: AddNewsFeedAudioToBucket
+
 
