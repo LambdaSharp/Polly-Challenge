@@ -55,14 +55,14 @@ The following command uses the LambdaSharp CLI to create a new deployment tier o
 lash init --quick-start
 ```
 
-## Level 0
+## Level 0 - Checkout Amazon Polly in the AWS Console
 
 - Search for "Amazon Polly" in AWS Console
 - Once in the Amazon Polly console, add some text to the "Plain Text" input area then click "Listen to speech".
 - Try different "Voices" and "Language and Region" then click "Listen to speech" again.
 - Ensure you can play the audio file locally by clicking "Download MP3" and opening the file.
 
-## Level 1
+## Level 1 - Deploy Challenge to AWS
 
 - In the cloned repo working directory, Polly-Challenge, deploy LambdaSharp by running the following command: `lash deploy`. This will take a minute.
 
@@ -81,13 +81,13 @@ You can now navigate to the [AWS S3 console](https://s3.console.aws.amazon.com/s
 
 You can also do another curl request to get a list of files from that bucket `curl -X GET https:/REPLACEME.execute-api.us-east-1.amazonaws.com/LATEST/files`
 
-## Level 2
+## Level 2 - Let's Get Notified
 
-Let's get notified when the converted text to audio file is ready. Send an SMS using an SNS topic. Add a link to the MP3 in the SNS message. Some setup has already been completed for you.
+Let's get notified when the converted text-to-speech file is ready. Update the SMS message in the SNS message to have a link to the MP3 file. Some setup has already been completed for you in the `Logic.cs` file in the `PollyFunction` folder.
 
 Docs: [Amazon SNS Publish](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html?page=SNS/MSNSPublishAsyncStringStringCancellationToken.html&tocid=Amazon_SimpleNotificationService_Amaz)
 
-## Level 3
+## Level 3 - Change Polly's Voice
 
 We want the user to be able to choose a language, voice style, and get audio based on that selection.
 
@@ -103,13 +103,13 @@ NOTE: This should not require any text translation
 
 [Language_Codes] https://docs.aws.amazon.com/polly/latest/dg/SupportedLanguage.html
 
-## Level 4
+## Level 4 - No Rework
 
 We don't want to expend processing power on duplicate files! If the content of the incoming article is identical to one that has already been saved, then do not send for audio processing but still send a link to the MP3 file in a SMS notification.
 
-## Level 5
+## Level 5 - News feed Summary
 
-We want to listen to a news feed summary instead of reading them. Make an API request to a news feeds service, get the title and date (parsing required), create an audio file then send an SMS with a link to listen to it! Update the existing method `AddNewsFeedAudioToBucket` in the `Logic.cs`.
+We want to listen to a news feed summary instead of reading them. Make an API request to a news feeds service, get the title and date (parsing required), create an audio file then send a SMS with a link to listen to it! Update the existing method `AddNewsFeedAudioToBucket` in the `Logic.cs` file.
 
 Here is a few APIs to look at:
 
@@ -118,7 +118,7 @@ Here is a few APIs to look at:
 
 You can trigger this using: `curl -X GET https:/REPLACEME.execute-api.us-east-1.amazonaws.com/LATEST/news-feed`.
 
-## Boss
+## Boss - Translate
 
 ![Thanos boss level](thanos.jpg)
 
