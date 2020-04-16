@@ -74,7 +74,7 @@ lash init --quick-start
   ```
 
 - Once completed, navigate to the API Gateway Deployment section in the AWS Console. Here is a link to the API Gateway console in US-EAST-1: https://console.aws.amazon.com/apigateway/main/apis?region=us-east-1
-- Test Amazon Polly by sending a web request to the API Gateway endpoint like this: `curl -d '{"Content": "Hello world! This is some test content.", "FileName": "test.mp3"}' -H "Content-Type: application/json" -X POST https:/REPLACEME.execute-api.us-east-1.amazonaws.com/LATEST/text-to-audio`
+- Test Amazon Polly by sending a web request to the API Gateway endpoint like this: `curl -d '{"Content": "Hello world! This is some test content.", "FileName": "test.mp3"}' -H "Content-Type: application/json" -X POST https:/REPLACEME.execute-api.us-east-1.amazonaws.com/LATEST/text-to-speech`
   - Be sure to replace the `REPLACEME` with the actual subdomain or entire url. Works with Git Bash, \*Nix, and Postman.
 
 You can now navigate to the [AWS S3 console](https://s3.console.aws.amazon.com/s3/home?region=us-east-1) `ArticlesBucket` for the saved file `test.mp3`
