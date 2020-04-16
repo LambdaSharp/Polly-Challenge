@@ -95,7 +95,7 @@ Use Amazon Polly's built in localization methods to describe the voices availabl
 
 Pick a voice from that list and use it to synthesize the text to speech in the chosen language.
 
-Using the `curl` request from Level 1, add a property for `LanguageCode` and `VoiceId` then be sure to update the `ConvertTextRequest` to have these fields to parse in the `Logic.cs` file in the method `AddTextToAudio`.
+Using the `curl` request from Level 1, add a property for `LanguageCode` and `VoiceId`. Be sure to update the `ConvertTextRequest` to have these fields to parse in the `Logic.cs` file in the method `AddTextToSpeechFileToBucket`.
 
 NOTE: This should not require any text translation
 
