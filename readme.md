@@ -107,7 +107,7 @@ NOTE: This should not require any text translation
 
 We don't want to expend processing power on duplicate files! If the content of the incoming article is identical to one that has already been saved, then do not send for audio processing but still send a link to the MP3 file in a SMS notification.
 
-## Level 5 - News feed Summary
+## Level 5 - News Feed Summary
 
 We want to listen to a news feed summary instead of reading them. Make an API request to a news feeds service, get the title and date (parsing required), create an audio file then send a SMS with a link to listen to it! Update the existing method `AddNewsFeedAudioToBucket` in the `Logic.cs` file.
 
